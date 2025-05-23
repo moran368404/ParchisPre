@@ -81,3 +81,6 @@ class Juego:
     def juego_terminado(self) -> bool:
         return self.jugador_actual.fichas_en_meta()
     """""
+
+if __name__ == '__main__':
+    pass
