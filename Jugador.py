@@ -44,7 +44,7 @@ class Ficha:
         - Gestionar la nueva casilla.
         - Comprobar si es necesario capturar una ficha.
         """
-        if not self.puede_moverse(pasos):
+        if self.puede_moverse(pasos):
             print(f"Ficha {self.id} de {self.jugador.nombre} no puede moverse.")
             return
 
@@ -75,14 +75,12 @@ class Ficha:
         - El número de pasos no supera el final de la pista.
         - No sale de la meta.
         """
-        if self.posicion == -1 and pasos == 5:  # Can only enter the board with a 5
+        if self.posicion == -1 and pasos == 6:  # Solo puede entrar al tablero si ha sacado un 6
             return True
-        if self.posicion >= 0:  # Already on the board
+
+        if self.posicion >= 0:  # Ya se encuentra en el tablero
             return True
 
         if isinstance(self.casilla_actual, CasillaMeta):
             # Ya en la meta, ya no puede moverse
             return False
-
-        # Si la ficha está en el tablero, se supone que puede moverse
-        return pasos > 0
