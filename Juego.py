@@ -1,7 +1,7 @@
 from typing import List
 from typing import Optional
 from Jugador import Jugador
-from Ficha import Ficha
+from Jugador import Ficha
 from Tablero import Tablero
 from Dado import Dado
 

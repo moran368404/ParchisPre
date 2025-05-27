@@ -1,7 +1,7 @@
 from typing import List
 from Casilla import Casilla
 from CasillaSalida import CasillaSalida
-from Ficha import Ficha
+from Jugador import Ficha
 
 class Tablero:
     def __init__(self):
@@ -11,12 +11,7 @@ class Tablero:
         return self.casillas[posicion % len(self.casillas)]
 
     def mover_ficha(self, ficha: Ficha, pasos: int):
-        if ficha.casilla_actual:
-            ficha.casilla_actual.quitar_ficha(ficha)
-        ficha.mover(pasos, self)
-        nueva_casilla = self.obtener_casilla(ficha.posicion)
-        ficha.casilla_actual = nueva_casilla
-        nueva_casilla.agregar_ficha(ficha)
+        ficha.mover(pasos,self)
 
     def capturar_ficha(self, ficha: Ficha):
         ficha.posicion = 0  # Regresar al inicio
