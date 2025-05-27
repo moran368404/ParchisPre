@@ -1,7 +1,7 @@
 from typing import List
 from typing import Optional
 from Jugador import Jugador
-from Ficha import Ficha
+from Jugador import Ficha
 from Tablero import Tablero
 from Dado import Dado
 
@@ -81,3 +81,6 @@ class Juego:
     def juego_terminado(self) -> bool:
         return self.jugador_actual.fichas_en_meta()
     """""
+
+if __name__ == '__main__':
+    pass
