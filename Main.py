@@ -1,16 +1,27 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from VistaJuego import VistaJuego
+from VistaJuego import VistaJuego, PrimeraVentana
 from Juego import Juego
 from JuegoPresenter import JuegoPresenter
+from PyQt5.QtCore import Qt, QTimer
 
 def ciclo_de_juego():
     app = QApplication(sys.argv)
     juego = Juego()
-    vista = VistaJuego()
+
+    vista = VistaJuego(None)
     presenter = JuegoPresenter(vista, juego)
+    vista.presenter = presenter
     vista.conectar_senales(presenter)
-    vista.show()
+
+    ventana = PrimeraVentana(presenter)
+    ventana.show()
+
+
+    QTimer.singleShot(3000, lambda: (
+        ventana.close(),
+        vista.show()
+    ))
 
     app.exec_()
 

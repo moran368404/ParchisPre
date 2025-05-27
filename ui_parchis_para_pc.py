@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Proyecto_6_mayo_QTDesigner/QtParchisParaPC.ui'
+# Form implementation generated from reading ui file '/Users/oceanethomas/PycharmProjects/ParchisPreOfficial/QtParchisParaPC.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -21,28 +21,75 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QtCore.QSize(5, 5))
+        font = QtGui.QFont()
+        font.setPointSize(17)
+        MainWindow.setFont(font)
+        MainWindow.setStyleSheet("background-color: #ADD8E6;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.btnJugar = QtWidgets.QPushButton(self.centralwidget)
-        self.btnJugar.setGeometry(QtCore.QRect(240, 430, 391, 41))
+        self.btnJugar.setGeometry(QtCore.QRect(130, 420, 641, 51))
+        font = QtGui.QFont()
+        font.setFamily("Chalkboard SE")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnJugar.setFont(font)
+        self.btnJugar.setStyleSheet("QPushButton {\n"
+"    background-color: #4682B4;\n"
+"    color: black;\n"
+"    border-radius: 20px;\n"
+"    padding: 10px 24px;\n"
+"    font-weight: bold;\n"
+"}")
         self.btnJugar.setObjectName("btnJugar")
         self.btnInstrucciones = QtWidgets.QPushButton(self.centralwidget)
-        self.btnInstrucciones.setGeometry(QtCore.QRect(240, 480, 391, 41))
+        self.btnInstrucciones.setGeometry(QtCore.QRect(130, 490, 641, 51))
+        font = QtGui.QFont()
+        font.setFamily("Chalkboard SE")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnInstrucciones.setFont(font)
+        self.btnInstrucciones.setStyleSheet("QPushButton {\n"
+"    background-color: #4682B4;\n"
+"    color: black;\n"
+"    border-radius: 20px;\n"
+"    padding: 10px 24px;\n"
+"    font-weight: bold;\n"
+"}")
         self.btnInstrucciones.setObjectName("btnInstrucciones")
         self.btnSalir = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSalir.setGeometry(QtCore.QRect(320, 530, 221, 41))
+        self.btnSalir.setGeometry(QtCore.QRect(260, 560, 381, 51))
+        font = QtGui.QFont()
+        font.setFamily("Chalkboard SE")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnSalir.setFont(font)
+        self.btnSalir.setStyleSheet("QPushButton {\n"
+"    background-color: #4682B4;\n"
+"    color: black;\n"
+"    border-radius: 20px;\n"
+"    padding: 10px 24px;\n"
+"    font-weight: bold;\n"
+"}")
         self.btnSalir.setObjectName("btnSalir")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(300, 10, 251, 71))
+        self.label.setGeometry(QtCore.QRect(220, 10, 441, 91))
         self.label.setMinimumSize(QtCore.QSize(8, 0))
         font = QtGui.QFont()
-        font.setPointSize(30)
+        font.setFamily("Chalkboard SE")
+        font.setPointSize(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label.setFont(font)
+        self.label.setStyleSheet("color: #1E2F3C;")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(240, 110, 381, 291))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("../Proyecto_6_mayo_QTDesigner/imagenJuego.png"))
+        self.label_2.setPixmap(QtGui.QPixmap("imagenJuego.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         MainWindow.setCentralWidget(self.centralwidget)
