@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Parchis-View-Github-13-05-QTDesigner/QtNumeroJugadores.ui'
+# Form implementation generated from reading ui file '/Users/oceanethomas/PycharmProjects/ParchisPreOfficial/PrimeraVentana.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,31 +14,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(884, 665)
+        MainWindow.resize(910, 682)
+        MainWindow.setStyleSheet("background-color: #ADD8E6")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(290, 30, 281, 71))
-        self.label.setMinimumSize(QtCore.QSize(8, 0))
+        self.label.setGeometry(QtCore.QRect(150, 510, 661, 111))
         font = QtGui.QFont()
-        font.setPointSize(30)
+        font.setFamily("Chalkboard SE")
+        font.setPointSize(75)
+        font.setBold(True)
+        font.setWeight(75)
         self.label.setFont(font)
+        self.label.setStyleSheet("color: #1E2F3C;")
         self.label.setObjectName("label")
-        self.btn1 = QtWidgets.QPushButton(self.centralwidget)
-        self.btn1.setGeometry(QtCore.QRect(260, 160, 113, 91))
-        self.btn1.setObjectName("btn1")
-        self.btn3 = QtWidgets.QPushButton(self.centralwidget)
-        self.btn3.setGeometry(QtCore.QRect(260, 290, 113, 91))
-        self.btn3.setObjectName("btn3")
-        self.btn2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btn2.setGeometry(QtCore.QRect(470, 160, 111, 91))
-        self.btn2.setObjectName("btn2")
-        self.btn4 = QtWidgets.QPushButton(self.centralwidget)
-        self.btn4.setGeometry(QtCore.QRect(470, 290, 111, 91))
-        self.btn4.setObjectName("btn4")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(170, 0, 571, 491))
+        self.label_2.setText("")
+        self.label_2.setPixmap(QtGui.QPixmap("imagenJuego.png"))
+        self.label_2.setScaledContents(True)
+        self.label_2.setObjectName("label_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 884, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 910, 24))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -51,11 +49,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Numero de jugadores"))
-        self.btn1.setText(_translate("MainWindow", "1"))
-        self.btn3.setText(_translate("MainWindow", "3"))
-        self.btn2.setText(_translate("MainWindow", "2"))
-        self.btn4.setText(_translate("MainWindow", "4"))
+        self.label.setText(_translate("MainWindow", "PARCHIS PARA PC"))
 
 
 if __name__ == "__main__":

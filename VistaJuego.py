@@ -5,11 +5,11 @@ from PyQt5.QtWidgets import QMainWindow
 from ui_parchis_para_pc import Ui_MainWindow
 
 class VistaJuego(QMainWindow):
-    def __init__(self):
+    def __init__(self, presenter):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.presenter = None
+        self.presenter = presenter
 
     def conectar_senales(self, presenter):
         self.presenter = presenter
@@ -55,24 +55,18 @@ class VentanaJugadores(QMainWindow):
     def __init__(self, presenter):
         super().__init__()
         self.presenter = presenter
-        loadUi("QtNumeroJugadores.ui", self)
-        self.btn1.clicked.connect(self.elegir_1_jugador)
+        loadUi("numero_jugadores.ui", self)
         self.btn2.clicked.connect(self.elegir_2_jugadores)
         self.btn3.clicked.connect(self.elegir_3_jugadores)
         self.btn4.clicked.connect(self.elegir_4_jugadores)
 
 
-    def elegir_1_jugador(self):
-        print("1 jugador elegido")
-        self.close()
-        QTimer.singleShot(0, lambda: self.presenter.configurar_jugadores(1))
-        #retrasa la ejecución de self.presenter.configurar_jugadores(1) hasta que la ventana actual
-        # haya terminado de cerrarse
-
     def elegir_2_jugadores(self):
         print("2 jugadores elegidos")
         self.close()
         QTimer.singleShot(0, lambda: self.presenter.configurar_jugadores(2))
+        # retrasa la ejecución de self.presenter.configurar_jugadores(1) hasta que la ventana actual
+        # haya terminado de cerrarse
 
     def elegir_3_jugadores(self):
         print("3 jugadores elegidos")
@@ -83,3 +77,9 @@ class VentanaJugadores(QMainWindow):
         print("4 jugadores elegidos")
         self.close()
         QTimer.singleShot(0, lambda: self.presenter.configurar_jugadores(4))
+        
+class PrimeraVentana(QMainWindow):
+    def __init__(self, presenter):
+        super().__init__()
+        self.presenter = presenter
+        loadUi("PrimeraVentana.ui", self)

@@ -13,14 +13,17 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #ADD8E6</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>30</y>
-      <width>281</width>
-      <height>71</height>
+      <x>140</x>
+      <y>20</y>
+      <width>621</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -31,34 +34,36 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>30</pointsize>
+      <family>Chalkboard SE</family>
+      <pointsize>60</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
-    <property name="text">
-     <string>Numero de jugadores</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn1">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>160</y>
-      <width>113</width>
-      <height>91</height>
-     </rect>
+    <property name="styleSheet">
+     <string notr="true">color: #1E2F3C;</string>
     </property>
     <property name="text">
-     <string>1</string>
+     <string>Número de jugadores</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn3">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>290</y>
-      <width>113</width>
-      <height>91</height>
+      <x>210</x>
+      <y>360</y>
+      <width>141</width>
+      <height>131</height>
      </rect>
+     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #1d5a96;
+    color: black;
+    font-size: 24px;
+    border-radius: 40px;
+    padding: 20px;
+}</string>
     </property>
     <property name="text">
      <string>3</string>
@@ -67,11 +72,20 @@
    <widget class="QPushButton" name="btn2">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>160</y>
-      <width>111</width>
-      <height>91</height>
+      <x>360</x>
+      <y>180</y>
+      <width>141</width>
+      <height>131</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #1d5a96;
+    color: black;
+    font-size: 24px;
+    border-radius: 40px;
+    padding: 20px;
+}</string>
     </property>
     <property name="text">
      <string>2</string>
@@ -80,11 +94,20 @@
    <widget class="QPushButton" name="btn4">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>290</y>
-      <width>111</width>
-      <height>91</height>
+      <x>510</x>
+      <y>360</y>
+      <width>141</width>
+      <height>131</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #1d5a96;
+    color: black;
+    font-size: 24px;
+    border-radius: 40px;
+    padding: 20px;
+}</string>
     </property>
     <property name="text">
      <string>4</string>
