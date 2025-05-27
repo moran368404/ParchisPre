@@ -9,7 +9,3 @@ class CasillaMeta(Casilla):
     """""""""
     def __init__(self, posicion: int):
         super().__init__(posicion)
-        self.llegadas: List['Ficha'] = []
-
-    def registrar_llegada(self, ficha: 'Ficha'):
-        self.llegadas.append(ficha)
