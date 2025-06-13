@@ -33,8 +33,8 @@ class VistaJuego(QMainWindow):
         print("\nTablero:")
         for i, casilla in enumerate(tablero.casillas):
             if casilla.fichas:
-                fichas_ids = ', '.join(str(f.id) for f in casilla.fichas)
-                print(f"Casilla {i}: {fichas_ids}")
+                fichas_info = ', '.join(f"Ficha {f.id} ({f.jugador.nombre})" for f in casilla.fichas)
+                print(f"Casilla {i}: {fichas_info}")
 
     def mostrar_dado(self, resultado: int):
         print(f"Dado: {resultado}")
