@@ -45,11 +45,16 @@ class JuegoPresenter:
         if self.vista_tablero:
             self.vista_tablero.show()
             self.actualizar_tablero()
+            self.mostrar_turno()
 
 
     def mostrar_instrucciones(self):
-        instructions = "Las reglas del Parchís..."
+        instructions = "El Parchís es un juego de mesa tradicional que se juega entre dos y cuatro personas. Cada jugador tiene cuatro fichas de un color (amarillo, rojo, azul o verde) y el objetivo del juego es llevar todas sus fichas desde la salida hasta la meta antes que los demás jugadores. Cada jugador comienza con sus fichas en la 'casa', y para sacar una ficha al tablero debe obtener un seis al lanzar el dado. Al sacar un seis, el jugador puede sacar una ficha o mover una que ya esté en juego seis casillas hacia adelante. Además, al sacar un seis se gana un turno extra. Las fichas avanzan en sentido contrario a las agujas del reloj alrededor del tablero, siguiendo un camino común de 68 casillas. Cada jugador tiene una casilla de entrada a su recorrido final: el amarillo entra por la casilla 1, el azul por la 18, el rojo por la 35 y el verde por la 52. Desde ahí, las fichas deben recorrer un camino final de siete casillas de su color hasta llegar a la meta. Para entrar en la meta, la ficha debe avanzar exactamente el número de pasos necesarios; de lo contrario, no puede moverse. Si una ficha cae en una casilla ocupada por una ficha de otro jugador (y dicha casilla no es segura), la ficha rival es capturada y enviada de regreso a su casa. El juego continúa hasta que uno de los jugadores logra llevar sus cuatro fichas a la meta, momento en el cual es declarado ganador."
         self.vista.mostrar_mensaje(instructions)
+
+    def mostrar_turno(self):
+        jugador = self.juego.get_jugador_activo()
+        self.vista_tablero.mostrar_turno(jugador.nombre, jugador.color)
 
 
     def lanzar_dado(self):
@@ -57,7 +62,7 @@ class JuegoPresenter:
         self.vista.mostrar_dado(resultado)
         return resultado
 
-    def mover_ficha(self, jugador: Jugador, ficha_id: int, pasos: int):
+    """def mover_ficha(self, jugador: Jugador, ficha_id: int, pasos: int):
         ficha = jugador.fichas[ficha_id]
         if ficha.puede_moverse(pasos):
             self.juego.mover_ficha(jugador, ficha, pasos)
@@ -71,15 +76,8 @@ class JuegoPresenter:
                 self.juego.siguiente_turno()
         else:
             self.vista.mostrar_mensaje("Movimiento inválido")
-        return False
+        return False"""
 
-    def mover_ficha_actual(self, ficha_id: int):
-        jugador = self.juego.jugadores[self.juego.turno_actual]
-        ficha = jugador.fichas[ficha_id]
-        pasos = self.juego.ultimo_resultado_dado
-        resultado = ficha.mover(pasos, self.juego.tablero)
-        print("Resultado del desplazamiento:", resultado)
-        self.actualizar_tablero()
 
     def get_fichas(self):
         fichas = []
@@ -101,6 +99,8 @@ class JuegoPresenter:
         # Cambio de turno (excepto si es 6)
         if valeur_de != 6:
             self.juego.siguiente_turno()
+
+        self.mostrar_turno()
 
     def actualizar_tablero(self):
         self.nettoyer_icones()

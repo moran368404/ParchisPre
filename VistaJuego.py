@@ -94,6 +94,11 @@ class VistaTablero(VistaBase):
             casilla_btn.setIcon(QIcon())
             casilla_btn.setStyleSheet("")
 
+    def mostrar_turno(self, nombre_jugador, color_jugador):
+        label_turno = self.findChild(QLabel, "label_turno")  # Assure-toi que ce label existe dans ton UI
+        if label_turno:
+            label_turno.setText(f"{nombre_jugador} ({color_jugador})")
+
 
     def set_presenter(self, presenter):
         self.presenter = presenter
@@ -105,6 +110,7 @@ class VistaTablero(VistaBase):
         self.labelResultadoDado.setText(str(resultado))
         self.presenter.deplacer_pion_actif(resultado)
         self.presenter.actualizar_tablero()
+
 
     def init_pions(self):
         """
@@ -196,10 +202,10 @@ class VistaTablero(VistaBase):
         else:
             self.mostrar_mensaje("Por favor, introduce un número válido (0-3).")
 
-    def lanzar_dado(self):
+    """def lanzar_dado(self):
         resultado = self.presenter.lanzar_dado()
         self.mostrar_dado(resultado)
-        self.mostrar_mensaje(f"Tira el dado: {resultado}")
+        self.mostrar_mensaje(f"Tira el dado: {resultado}")"""
 
 
 # --- Clase para la ventana de selección del número de jugadores ---
