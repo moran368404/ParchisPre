@@ -1,40 +1,45 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from VistaJuego import VistaJuego, PrimeraVentana
+from PyQt5.QtCore import QTimer
 from Juego import Juego
 from JuegoPresenter import JuegoPresenter
-from PyQt5.QtCore import Qt, QTimer
+from VistaJuego import VistaParchis, VistaTablero, PrimeraVentana, VentanaJugadores
 
-def ciclo_de_juego():
+def main():
     app = QApplication(sys.argv)
     juego = Juego()
 
-    vista = VistaJuego(None)
-    presenter = JuegoPresenter(vista, juego)
-    vista.presenter = presenter
-    vista.conectar_senales(presenter)
+    # Instanciar vistas
+    ventana_inicio = PrimeraVentana(None)
+    vista_parchis = VistaParchis(None)
+    ventana_jugadores = VentanaJugadores(None)
+    vista_tablero = VistaTablero()
 
-    ventana = PrimeraVentana(presenter)
-    ventana.show()
+    # Crear presentador y vincular vistas
+    presenter = JuegoPresenter(vista_parchis, juego)
+    presenter.vista_inicio = ventana_inicio
+    presenter.vista_parchis = vista_parchis
+    presenter.vista_jugadores = ventana_jugadores
+    presenter.vista_tablero = vista_tablero
 
+    ventana_inicio.presenter = presenter
+    vista_parchis.presenter = presenter
+    ventana_jugadores.presenter = presenter
+    vista_tablero.set_presenter(presenter)
 
-    QTimer.singleShot(3000, lambda: (
-        ventana.close(),
-        vista.show()
-    ))
+    vista_parchis.conectar_senales(presenter)
+    vista_tablero.conectar_senales(presenter)
 
-    app.exec_()
+    ventana_inicio.show()
 
-    while True:
-        jugador = juego.jugadores[juego.turno_actual]
-        vista.mostrar_mensaje(f"\nTurno de {jugador.nombre}")
-        input("Presiona Enter para lanzar el dado...")
-        resultado = presenter.lanzar_dado()
+    # Cambio automático a vista_parchis después de 3so
+    def mostrar_menu_parchis():
+        ventana_inicio.close()
+        vista_parchis.show()
 
-        ficha_id = int(input(f"Selecciona la ficha (0-3) para mover {resultado} pasos: "))
-        if presenter.mover_ficha(jugador, ficha_id, resultado):
-            break
+    QTimer.singleShot(3000, mostrar_menu_parchis)
 
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
-    ciclo_de_juego()
+    main()
