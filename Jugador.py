@@ -87,7 +87,7 @@ class Ficha:
             if ficha.jugador != self.jugador:
                 tablero.capturar_ficha(ficha)
 
-        return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
+        #return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
 
 
     def puede_moverse(self, pasos: int) -> bool:

@@ -89,7 +89,7 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(240, 110, 381, 291))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("imagenJuego.png"))
+        self.label_2.setPixmap(QtGui.QPixmap("imagenes/imagenJuego.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         MainWindow.setCentralWidget(self.centralwidget)
