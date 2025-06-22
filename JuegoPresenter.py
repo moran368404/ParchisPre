@@ -57,10 +57,10 @@ class JuegoPresenter:
         self.vista_tablero.mostrar_turno(jugador.nombre, jugador.color)
 
 
-    def lanzar_dado(self):
+    """def lanzar_dado(self):
         resultado = self.juego.lanzar_dado()
         self.vista.mostrar_dado(resultado)
-        return resultado
+        return resultado"""
 
     """def mover_ficha(self, jugador: Jugador, ficha_id: int, pasos: int):
         ficha = jugador.fichas[ficha_id]
@@ -85,35 +85,35 @@ class JuegoPresenter:
             fichas.extend(joueur.fichas)
         return fichas
 
-    def deplacer_pion_actif(self, valeur_de):
+    def move_active_pion(self, valor_dado):
         jugador = self.juego.get_jugador_activo()
-        ficha = jugador.get_ficha_active(valeur_de)
+        ficha = jugador.get_ficha_active(valor_dado)
 
         if ficha:
-            message = ficha.mover(valeur_de, self.juego.tablero)
+            message = ficha.mover(valor_dado, self.juego.tablero)
             if message:
                 self.vista.mostrar_mensaje(message)
         else:
             self.vista.mostrar_mensaje(f"No se puede mover ningúna ficha para {jugador.nombre}.")
 
         # Cambio de turno (excepto si es 6)
-        if valeur_de != 6:
+        if valor_dado != 6:
             self.juego.siguiente_turno()
 
         self.mostrar_turno()
 
     def actualizar_tablero(self):
-        self.nettoyer_icones()
-        self.afficher_pions()
+        self.limpia_iconos()
+        self.mostrar_fichas()
 
-    def nettoyer_icones(self):
+    def limpia_iconos(self):
         for i in range(1, 69):  # casilla1 à casilla68
             nom = f"casilla{i}"
             bouton = self.vista_tablero.findChild(QPushButton, nom)
             if bouton:
                 bouton.setIcon(QIcon())
 
-    def afficher_pions(self):
+    def mostrar_fichas(self):
         for jugador in self.juego.jugadores:
             for ficha in jugador.fichas:
                 if ficha.posicion >= 0:
@@ -121,7 +121,7 @@ class JuegoPresenter:
                     nom_casilla = f"casilla{index}"
                     boton = self.vista_tablero.findChild(QPushButton, nom_casilla)
                     if boton:
-                        chemin_image = f"imagenes/pion_{jugador.color}.png"
+                        chemin_image = f"ficheros_ui/imagenes/pion_{jugador.color}.png"
                         pixmap = QPixmap(chemin_image)
                         if not pixmap.isNull():
                             icon = QIcon(pixmap)

@@ -1,41 +1,52 @@
 from Tablero import Tablero
 from Dado import Dado
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QPushButton, QLabel, QWidget
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QPushButton, QLabel, QWidget, QDialog
 from ui_parchis_para_pc import Ui_MainWindow as UiParchisMainWindow
 from ui_tablero import Ui_MainWindow as UiTableroMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import QTimer, QPoint, QRect
 from PyQt5.QtGui import QPainter, QColor, QPen, QIcon, QPixmap
+from formulario_jugador import Ui_DialogJugador
 
 
-class VistaBase(QMainWindow):
+"""class VistaBase(QMainWindow):
     def mostrar_mensaje(self, mensaje: str):
         if hasattr(self.ui, 'mensajes'):
             self.ui.mensajes.setText(mensaje)
+        else:
+            QMessageBox.information(self, "Mensaje", mensaje)"""
+
+class VistaBase(QMainWindow):
+    def mostrar_mensaje(self, mensaje: str):
+        mensajes_label = self.findChild(QLabel, "mensajes")
+        if mensajes_label:
+            mensajes_label.setText(mensaje)
         else:
             QMessageBox.information(self, "Mensaje", mensaje)
 
 
 # --- Clase de interfaz Parchis (ui_parchis_para_pc) ---
+
 class VistaParchis(VistaBase):
     def __init__(self, presenter=None):
         super().__init__()
-        self.ui = UiParchisMainWindow()
-        self.ui.setupUi(self)
+        loadUi("ficheros_ui/QtParchisParaPC.ui", self)
+        #self.ui = UiParchisMainWindow()
+        #self.ui.setupUi(self)
         self.presenter = presenter
 
         # Conexiones de botones sólo si el presentador está definido
         if self.presenter:
-            self.ui.btnJugar.clicked.connect(self.abrir_numero_jugadores)
-            self.ui.btnInstrucciones.clicked.connect(self.presenter.mostrar_instrucciones)
-            self.ui.btnSalir.clicked.connect(self.cerrar)
+            self.btnJugar.clicked.connect(self.abrir_numero_jugadores)
+            self.btnInstrucciones.clicked.connect(self.presenter.mostrar_instrucciones)
+            self.btnSalir.clicked.connect(self.cerrar)
 
     def conectar_senales(self, presenter):
         self.presenter = presenter
-        self.ui.btnJugar.clicked.connect(self.abrir_numero_jugadores)
-        self.ui.btnInstrucciones.clicked.connect(self.presenter.mostrar_instrucciones)
-        self.ui.btnSalir.clicked.connect(self.cerrar)
+        self.btnJugar.clicked.connect(self.abrir_numero_jugadores)
+        self.btnInstrucciones.clicked.connect(self.presenter.mostrar_instrucciones)
+        self.btnSalir.clicked.connect(self.cerrar)
 
     def abrir_numero_jugadores(self):
         self.ventana_jugadores = VentanaJugadores(self.presenter)
@@ -46,16 +57,16 @@ class VistaParchis(VistaBase):
         self.close()
         exit()
 
-    def mostrar_tablero(self, tablero: Tablero):
+    """def mostrar_tablero(self, tablero: Tablero):
         self.mostrar_mensaje("\nTablero:")
         for i, casilla in enumerate(tablero.casillas):
             if casilla.fichas:
                 fichas_info = ', '.join(f"Ficha {f.id} ({f.jugador.nombre})" for f in casilla.fichas)
-                self.mostrar_mensaje(f"Casilla {i}: {fichas_info}")
+                self.mostrar_mensaje(f"Casilla {i}: {fichas_info}")"""
 
 
-    def actualizar_tablero(self):
-        pass
+    """def actualizar_tablero(self):
+        pass"""
 
 
 # --- Clase para la interfaz Tablero (ui_tablero) ---
@@ -63,7 +74,7 @@ class VistaParchis(VistaBase):
 class VistaTablero(VistaBase):
     def __init__(self, presenter=None):
         super().__init__()
-        uic.loadUi("tablero.ui", self)
+        uic.loadUi("ficheros_ui/tablero.ui", self)
         self.presenter = presenter
         self.dado = Dado(6)
         self.labels_fichas = []
@@ -76,43 +87,43 @@ class VistaTablero(VistaBase):
             "azul": QColor(0, 0, 255)
         }
 
-        self.btnLanzarDado.clicked.connect(self.lancer_de)
+        self.btnLanzarDado.clicked.connect(self.lanzar_dado)
 
-    def mostrar_pion_en_casilla(self, numero_casilla, color_pion):
-        casilla_btn = getattr(self.vista_tablero, f"casilla{numero_casilla}", None)
+    """def mostrar_ficha_en_casilla(self, numero_casilla, color_pion):
+        casilla_btn = getattr(self, f"casilla{numero_casilla}", None)
         if casilla_btn:
-            icon_path = f"pion_{color_pion}.png"
+            icon_path = f"ficheros_ui/imagenes/pion_{color_pion}.png"
             icon = QIcon(QPixmap(icon_path).scaled(30, 30))
             casilla_btn.setIcon(icon)
             casilla_btn.setIconSize(casilla_btn.size())
         else:
-            print(f"Casilla {numero_casilla} no encontrada.")
+            print(f"Casilla {numero_casilla} no encontrada.")"""
 
-    def limpiar_casilla(self, numero_casilla):
-        casilla_btn = getattr(self.vista_tablero, f"casilla{numero_casilla}", None)
+    """def limpiar_casilla(self, numero_casilla):
+        casilla_btn = getattr(self, f"casilla{numero_casilla}", None)
         if casilla_btn:
             casilla_btn.setIcon(QIcon())
-            casilla_btn.setStyleSheet("")
+            casilla_btn.setStyleSheet("")"""
 
     def mostrar_turno(self, nombre_jugador, color_jugador):
-        label_turno = self.findChild(QLabel, "label_turno")  # Assure-toi que ce label existe dans ton UI
+        label_turno = self.findChild(QLabel, "label_turno")
         if label_turno:
             label_turno.setText(f"{nombre_jugador} ({color_jugador})")
 
 
     def set_presenter(self, presenter):
         self.presenter = presenter
-        self.init_pions()
+        self.inicializar_fichas()
 
 
-    def lancer_de(self):
+    def lanzar_dado(self):
         resultado = self.dado.lanzar()
         self.labelResultadoDado.setText(str(resultado))
-        self.presenter.deplacer_pion_actif(resultado)
+        self.presenter.move_active_pion(resultado)
         self.presenter.actualizar_tablero()
 
 
-    def init_pions(self):
+    def inicializar_fichas(self):
         """
         Muestra todas las fichas al principio.
         """
@@ -122,10 +133,10 @@ class VistaTablero(VistaBase):
             label.setText("●")  # O una imagen
             label.resize(20, 20)
             self.labels_fichas.append((ficha, label))
-        self.mettre_a_jour_pions()
+        self.actualizar_fichas()
 
 
-    def mettre_a_jour_pions(self):
+    def actualizar_fichas(self):
         """
         Actualiza visualmente la posición de las fichas en el tablero.
         """
@@ -135,14 +146,14 @@ class VistaTablero(VistaBase):
             label.move(x, y)
             label.show()
 
-    def position_to_coords(self, pos):
+    """def position_to_coords(self, pos):
         # Suponga que su tablero tiene una cuadrícula de 10x10, cada cuadrado es de 40x40 píxeles.
         case_taille = 40
         ligne = pos // 10
         colonne = pos % 10
         x = colonne * case_taille
         y = ligne * case_taille
-        return x, y
+        return x, y"""
 
 
 
@@ -151,32 +162,32 @@ class VistaTablero(VistaBase):
     def conectar_senales(self, presenter):
         self.presenter = presenter
 
-    def abrir_numero_jugadores(self):
+    """def abrir_numero_jugadores(self):
         self.ventana_jugadores = VentanaJugadores(self.presenter)
         self.close()
-        self.ventana_jugadores.show()
+        self.ventana_jugadores.show()"""
 
     def cerrar(self):
         self.close()
         exit()
 
-    def mostrar_tablero(self, tablero: Tablero):
+    """def mostrar_tablero(self, tablero: Tablero):
         self.mostrar_mensaje("\nTablero:")
         for i, casilla in enumerate(tablero.casillas):
             if casilla.fichas:
                 fichas_info = ', '.join(f"Ficha {f.id} ({f.jugador.nombre})" for f in casilla.fichas)
-                self.mostrar_mensaje(f"Casilla {i}: {fichas_info}")
+                self.mostrar_mensaje(f"Casilla {i}: {fichas_info}")"""
 
-    def mostrar_dado(self, resultado: int):
-        self.ui.dado.setText(f"{resultado}")
+    """def mostrar_dado(self, resultado: int):
+        self.ui.dado.setText(f"{resultado}")"""
 
-    def actualizar_tablero(self):
+    """def actualizar_tablero(self):
         total_casillas = 68
         # Limpiar primero todas las casillas
         for i in range(1, total_casillas + 1):
             self.limpiar_casilla(i)
 
-        # Afficher les pions
+        # Visualizar las fichas
         for jugador in self.juego.jugadores:
             for ficha in jugador.fichas:
                 if ficha.posicion >= 0:
@@ -186,21 +197,21 @@ class VistaTablero(VistaBase):
 
                     if boton:
                         color = ficha.color
-                        pixmap = QPixmap(f"imagenes/pion_{color}.png")
+                        pixmap = QPixmap(f"ficheros_ui/imagenes/pion_{color}.png")
                         icon = QIcon(pixmap)
                         boton.setIcon(icon)
                         boton.setIconSize(QSize(30, 30))
                     else:
-                        print(f"Boton '{nombre_casilla}' irrastreable")
+                        print(f"Boton '{nombre_casilla}' irrastreable")"""
 
-    def leer_input_jugador(self):
+    """def leer_input_jugador(self):
         texto = self.lineedit_pieza = QtWidgets.QLineEdit(...)
         if texto.isdigit():
             ficha_id = int(texto)
             self.presenter.mover_ficha_actual(ficha_id)
             self.ui.inputJugador.clear()
         else:
-            self.mostrar_mensaje("Por favor, introduce un número válido (0-3).")
+            self.mostrar_mensaje("Por favor, introduce un número válido (0-3).")"""
 
     """def lanzar_dado(self):
         resultado = self.presenter.lanzar_dado()
@@ -213,7 +224,7 @@ class VentanaJugadores(VistaBase):
     def __init__(self, presenter):
         super().__init__()
         self.presenter = presenter
-        loadUi("numero_jugadores.ui", self)
+        loadUi("ficheros_ui/numero_jugadores.ui", self)
         self.btn2.clicked.connect(self.elegir_2_jugadores)
         self.btn3.clicked.connect(self.elegir_3_jugadores)
         self.btn4.clicked.connect(self.elegir_4_jugadores)
@@ -236,12 +247,20 @@ class PrimeraVentana(VistaBase):
     def __init__(self, presenter):
         super().__init__()
         self.presenter = presenter
-        loadUi("PrimeraVentana.ui", self)
-
-from PyQt5.QtWidgets import QDialog
-from formulario_jugador import Ui_DialogJugador
+        loadUi("ficheros_ui/PrimeraVentana.ui", self)
 
 class DialogDatosJugador(QDialog):
+    """
+    Clase DialogDatosJugador:
+        Esta clase representa un cuadro de diálogo que permite al usuario introducir
+        su nombre y seleccionar un color disponible para su ficha en el juego.
+        Se utiliza al configurar los jugadores al inicio de la partida.
+
+        - Muestra un campo de texto para el nombre del jugador.
+        - Muestra un menú desplegable con los colores disponibles.
+        - Tiene botones para validar (aceptar) o cancelar.
+        - El método get_datos() devuelve el nombre y el color seleccionados.
+    """
     def __init__(self, colores_disponibles):
         super().__init__()
         self.ui = Ui_DialogJugador()

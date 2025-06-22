@@ -14,23 +14,23 @@ class Juego:
         self.num_jugadores = 0
         self.ultimo_resultado_dado = 0
 
-    def configurar_jugadores(self, cantidad):
-        self.num_jugadores = cantidad
+    """def configurar_jugadores(self, cantidad):
+        self.num_jugadores = cantidad"""
 
-    def iniciar_juego(self, jugadores_info):
+    """def iniciar_juego(self, jugadores_info):
         for nombre, color in jugadores_info:
-            self.jugadores.append(Jugador(nombre, color))
+            self.jugadores.append(Jugador(nombre, color))"""
 
-    def lanzar_dado(self) -> int:
+    """def lanzar_dado(self) -> int:
         resultado = self.dado.lanzar()
         self.ultimo_resultado_dado = resultado
-        return resultado
+        return resultado"""
 
-    def verificar_ganador(self) -> Optional[Jugador]:
+    """def verificar_ganador(self) -> Optional[Jugador]:
         for jugador in self.jugadores:
             if jugador.fichas_en_meta():
                 return jugador
-        return None
+        return None"""
 
     def siguiente_turno(self):
         self.turno_actual = (self.turno_actual + 1) % len(self.jugadores)
