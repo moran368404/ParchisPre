@@ -1,10 +1,12 @@
 from typing import List
 
+
 class Casilla:
     """
     Representa una casilla del tablero.
     Contiene su posición y una lista de fichas que están sobre ella.
     """
+
     def __init__(self, posicion: int):
         self.posicion = posicion
         self.fichas: List['Ficha'] = []

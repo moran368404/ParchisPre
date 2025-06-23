@@ -36,12 +36,12 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btnJugar.setFont(font)
         self.btnJugar.setStyleSheet("QPushButton {\n"
-"    background-color: #4682B4;\n"
-"    color: black;\n"
-"    border-radius: 20px;\n"
-"    padding: 10px 24px;\n"
-"    font-weight: bold;\n"
-"}")
+                                    "    background-color: #4682B4;\n"
+                                    "    color: black;\n"
+                                    "    border-radius: 20px;\n"
+                                    "    padding: 10px 24px;\n"
+                                    "    font-weight: bold;\n"
+                                    "}")
         self.btnJugar.setObjectName("btnJugar")
         self.btnInstrucciones = QtWidgets.QPushButton(self.centralwidget)
         self.btnInstrucciones.setGeometry(QtCore.QRect(130, 490, 641, 51))
@@ -52,12 +52,12 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btnInstrucciones.setFont(font)
         self.btnInstrucciones.setStyleSheet("QPushButton {\n"
-"    background-color: #4682B4;\n"
-"    color: black;\n"
-"    border-radius: 20px;\n"
-"    padding: 10px 24px;\n"
-"    font-weight: bold;\n"
-"}")
+                                            "    background-color: #4682B4;\n"
+                                            "    color: black;\n"
+                                            "    border-radius: 20px;\n"
+                                            "    padding: 10px 24px;\n"
+                                            "    font-weight: bold;\n"
+                                            "}")
         self.btnInstrucciones.setObjectName("btnInstrucciones")
         self.btnSalir = QtWidgets.QPushButton(self.centralwidget)
         self.btnSalir.setGeometry(QtCore.QRect(260, 560, 381, 51))
@@ -68,12 +68,12 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btnSalir.setFont(font)
         self.btnSalir.setStyleSheet("QPushButton {\n"
-"    background-color: #4682B4;\n"
-"    color: black;\n"
-"    border-radius: 20px;\n"
-"    padding: 10px 24px;\n"
-"    font-weight: bold;\n"
-"}")
+                                    "    background-color: #4682B4;\n"
+                                    "    color: black;\n"
+                                    "    border-radius: 20px;\n"
+                                    "    padding: 10px 24px;\n"
+                                    "    font-weight: bold;\n"
+                                    "}")
         self.btnSalir.setObjectName("btnSalir")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(220, 10, 441, 91))
@@ -115,6 +115,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

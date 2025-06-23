@@ -9,10 +9,11 @@ class Jugador:
     que controla durante la partida.
     Esta clase permite saber si el jugador tiene algunas fichas en la casilla Meta.
     """
+
     def __init__(self, nombre: str, color: str):
         self.nombre = nombre
-        self.color = color                # Color de las fichas del jugador
-        self.fichas = [Ficha(i, -1, Casilla(0), self) for i in range(4)]     # Lista de fichas del jugador (List[Ficha])
+        self.color = color  # Color de las fichas del jugador
+        self.fichas = [Ficha(i, -1, Casilla(0), self) for i in range(4)]  # Lista de fichas del jugador (List[Ficha])
 
     def fichas_en_meta(self) -> bool:
         """
@@ -36,6 +37,7 @@ class Jugador:
 
         return None
 
+
 class Ficha:
     """
     Representa una ficha individual de un jugador.
@@ -43,12 +45,12 @@ class Ficha:
     y mantiene un enlace a su casilla actual (objeto de typo Casilla).
     La clase permite mover la ficha, comprobar si puede moverse una cantidad de pasos determinada
     según las reglas del juego."""
-    
+
     def __init__(self, id: int, posicion: int, casilla_actual, jugador: Jugador):
         self.id = id
         self.posicion = posicion
         self.casilla_actual = casilla_actual  # objeto de typo Casilla
-        self.jugador = jugador # la pieza pertenece a este jugador
+        self.jugador = jugador  # la pieza pertenece a este jugador
 
     def obtener_posicion_salida(self) -> int:
         color = self.jugador.color.lower()
@@ -87,8 +89,7 @@ class Ficha:
             if ficha.jugador != self.jugador:
                 tablero.capturar_ficha(ficha)
 
-        #return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
-
+        # return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
 
     def puede_moverse(self, pasos: int) -> bool:
         """

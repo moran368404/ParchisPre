@@ -5,6 +5,7 @@ from Jugador import Ficha
 from Tablero import Tablero
 from Dado import Dado
 
+
 class Juego:
     def __init__(self):
         self.jugadores: List[Jugador] = []
@@ -37,6 +38,7 @@ class Juego:
 
     def get_jugador_activo(self):
         return self.jugadores[self.turno_actual]
+
 
 if __name__ == '__main__':
     pass

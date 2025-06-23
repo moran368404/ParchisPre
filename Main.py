@@ -5,6 +5,7 @@ from Juego import Juego
 from JuegoPresenter import JuegoPresenter
 from VistaJuego import VistaParchis, VistaTablero, PrimeraVentana, VentanaJugadores
 
+
 def main():
     app = QApplication(sys.argv)
     juego = Juego()
@@ -40,6 +41,7 @@ def main():
     QTimer.singleShot(3000, mostrar_menu_parchis)
 
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()

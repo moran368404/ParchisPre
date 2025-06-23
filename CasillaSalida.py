@@ -1,5 +1,6 @@
 from Casilla import Casilla
 
+
 class CasillaSalida(Casilla):
     def __init__(self, posicion: int):
         super().__init__(posicion)

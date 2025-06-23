@@ -1,5 +1,6 @@
 import random
 
+
 class Dado:
     """""""""
     Clase Dado, en el init solamente definimos el numero de caras que tiene el dado

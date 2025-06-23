@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogJugador</class>
- <widget class="QDialog" name="DialogJugador">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>300</width>
-    <height>180</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Ajouter un Joueur</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="labelNom">
-     <property name="text">
-      <string>Nom du joueur :</string>
-     </property>
+    <class>DialogJugador</class>
+    <widget class="QDialog" name="DialogJugador">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>300</width>
+                <height>180</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Ajouter un Joueur</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QLabel" name="labelNom">
+                    <property name="text">
+                        <string>Nom du joueur :</string>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLineEdit" name="lineEditNom"/>
+            </item>
+            <item>
+                <widget class="QLabel" name="labelCouleur">
+                    <property name="text">
+                        <string>Choisir une couleur :</string>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QComboBox" name="comboBoxCouleur"/>
+            </item>
+            <item>
+                <layout class="QHBoxLayout">
+                    <item>
+                        <widget class="QPushButton" name="btnValider">
+                            <property name="text">
+                                <string>Valider</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="btnAnnuler">
+                            <property name="text">
+                                <string>Annuler</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
     </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="lineEditNom"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelCouleur">
-     <property name="text">
-      <string>Choisir une couleur :</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QComboBox" name="comboBoxCouleur"/>
-   </item>
-   <item>
-    <layout class="QHBoxLayout">
-     <item>
-      <widget class="QPushButton" name="btnValider">
-       <property name="text">
-        <string>Valider</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnAnnuler">
-       <property name="text">
-        <string>Annuler</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <resources/>
+    <connections/>
 </ui>

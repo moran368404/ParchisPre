@@ -7,6 +7,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QPushButton
 
+
 class JuegoPresenter:
     def __init__(self, vista_principale, juego):
         self.vista = vista_principale
@@ -39,14 +40,12 @@ class JuegoPresenter:
 
         self.iniciar()
 
-
     def iniciar(self):
         self.vista.close()
         if self.vista_tablero:
             self.vista_tablero.show()
             self.actualizar_tablero()
             self.mostrar_turno()
-
 
     def mostrar_instrucciones(self):
         instructions = "El Parchís es un juego de mesa tradicional que se juega entre dos y cuatro personas. Cada jugador tiene cuatro fichas de un color (amarillo, rojo, azul o verde) y el objetivo del juego es llevar todas sus fichas desde la salida hasta la meta antes que los demás jugadores. Cada jugador comienza con sus fichas en la 'casa', y para sacar una ficha al tablero debe obtener un seis al lanzar el dado. Al sacar un seis, el jugador puede sacar una ficha o mover una que ya esté en juego seis casillas hacia adelante. Además, al sacar un seis se gana un turno extra. Las fichas avanzan en sentido contrario a las agujas del reloj alrededor del tablero, siguiendo un camino común de 68 casillas. Cada jugador tiene una casilla de entrada a su recorrido final: el amarillo entra por la casilla 1, el azul por la 18, el rojo por la 35 y el verde por la 52. Desde ahí, las fichas deben recorrer un camino final de siete casillas de su color hasta llegar a la meta. Para entrar en la meta, la ficha debe avanzar exactamente el número de pasos necesarios; de lo contrario, no puede moverse. Si una ficha cae en una casilla ocupada por una ficha de otro jugador (y dicha casilla no es segura), la ficha rival es capturada y enviada de regreso a su casa. El juego continúa hasta que uno de los jugadores logra llevar sus cuatro fichas a la meta, momento en el cual es declarado ganador."
@@ -55,7 +54,6 @@ class JuegoPresenter:
     def mostrar_turno(self):
         jugador = self.juego.get_jugador_activo()
         self.vista_tablero.mostrar_turno(jugador.nombre, jugador.color)
-
 
     """def lanzar_dado(self):
         resultado = self.juego.lanzar_dado()
@@ -77,7 +75,6 @@ class JuegoPresenter:
         else:
             self.vista.mostrar_mensaje("Movimiento inválido")
         return False"""
-
 
     def get_fichas(self):
         fichas = []
@@ -131,4 +128,3 @@ class JuegoPresenter:
                             print(f"Imagen no encontrada : {chemin_image}")
                     else:
                         print(f"Boton {nom_casilla} irrastreable.")
-

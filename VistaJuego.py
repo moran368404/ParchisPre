@@ -9,13 +9,13 @@ from PyQt5.QtCore import QTimer, QPoint, QRect
 from PyQt5.QtGui import QPainter, QColor, QPen, QIcon, QPixmap
 from formulario_jugador import Ui_DialogJugador
 
-
 """class VistaBase(QMainWindow):
     def mostrar_mensaje(self, mensaje: str):
         if hasattr(self.ui, 'mensajes'):
             self.ui.mensajes.setText(mensaje)
         else:
             QMessageBox.information(self, "Mensaje", mensaje)"""
+
 
 class VistaBase(QMainWindow):
     def mostrar_mensaje(self, mensaje: str):
@@ -32,8 +32,8 @@ class VistaParchis(VistaBase):
     def __init__(self, presenter=None):
         super().__init__()
         loadUi("ficheros_ui/QtParchisParaPC.ui", self)
-        #self.ui = UiParchisMainWindow()
-        #self.ui.setupUi(self)
+        # self.ui = UiParchisMainWindow()
+        # self.ui.setupUi(self)
         self.presenter = presenter
 
         # Conexiones de botones sólo si el presentador está definido
@@ -63,7 +63,6 @@ class VistaParchis(VistaBase):
             if casilla.fichas:
                 fichas_info = ', '.join(f"Ficha {f.id} ({f.jugador.nombre})" for f in casilla.fichas)
                 self.mostrar_mensaje(f"Casilla {i}: {fichas_info}")"""
-
 
     """def actualizar_tablero(self):
         pass"""
@@ -110,18 +109,15 @@ class VistaTablero(VistaBase):
         if label_turno:
             label_turno.setText(f"{nombre_jugador} ({color_jugador})")
 
-
     def set_presenter(self, presenter):
         self.presenter = presenter
         self.inicializar_fichas()
-
 
     def lanzar_dado(self):
         resultado = self.dado.lanzar()
         self.labelResultadoDado.setText(str(resultado))
         self.presenter.move_active_pion(resultado)
         self.presenter.actualizar_tablero()
-
 
     def inicializar_fichas(self):
         """
@@ -134,7 +130,6 @@ class VistaTablero(VistaBase):
             label.resize(20, 20)
             self.labels_fichas.append((ficha, label))
         self.actualizar_fichas()
-
 
     def actualizar_fichas(self):
         """
@@ -154,10 +149,6 @@ class VistaTablero(VistaBase):
         x = colonne * case_taille
         y = ligne * case_taille
         return x, y"""
-
-
-
-
 
     def conectar_senales(self, presenter):
         self.presenter = presenter
@@ -249,6 +240,7 @@ class PrimeraVentana(VistaBase):
         self.presenter = presenter
         loadUi("ficheros_ui/PrimeraVentana.ui", self)
 
+
 class DialogDatosJugador(QDialog):
     """
     Clase DialogDatosJugador:
@@ -261,6 +253,7 @@ class DialogDatosJugador(QDialog):
         - Tiene botones para validar (aceptar) o cancelar.
         - El método get_datos() devuelve el nombre y el color seleccionados.
     """
+
     def __init__(self, colores_disponibles):
         super().__init__()
         self.ui = Ui_DialogJugador()

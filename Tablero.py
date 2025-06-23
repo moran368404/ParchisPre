@@ -3,6 +3,7 @@ from Casilla import Casilla
 from CasillaSalida import CasillaSalida
 from Jugador import Ficha
 
+
 class Tablero:
     def __init__(self):
         self.casillas: List[Casilla] = [Casilla(i) for i in range(68)]

@@ -32,32 +32,32 @@ class Ui_MainWindow(object):
         self.btn3 = QtWidgets.QPushButton(self.centralwidget)
         self.btn3.setGeometry(QtCore.QRect(210, 360, 141, 131))
         self.btn3.setStyleSheet("QPushButton {\n"
-"    background-color: #1d5a96;\n"
-"    color: black;\n"
-"    font-size: 24px;\n"
-"    border-radius: 40px;\n"
-"    padding: 20px;\n"
-"}")
+                                "    background-color: #1d5a96;\n"
+                                "    color: black;\n"
+                                "    font-size: 24px;\n"
+                                "    border-radius: 40px;\n"
+                                "    padding: 20px;\n"
+                                "}")
         self.btn3.setObjectName("btn3")
         self.btn2 = QtWidgets.QPushButton(self.centralwidget)
         self.btn2.setGeometry(QtCore.QRect(360, 180, 141, 131))
         self.btn2.setStyleSheet("QPushButton {\n"
-"    background-color: #1d5a96;\n"
-"    color: black;\n"
-"    font-size: 24px;\n"
-"    border-radius: 40px;\n"
-"    padding: 20px;\n"
-"}")
+                                "    background-color: #1d5a96;\n"
+                                "    color: black;\n"
+                                "    font-size: 24px;\n"
+                                "    border-radius: 40px;\n"
+                                "    padding: 20px;\n"
+                                "}")
         self.btn2.setObjectName("btn2")
         self.btn4 = QtWidgets.QPushButton(self.centralwidget)
         self.btn4.setGeometry(QtCore.QRect(510, 360, 141, 131))
         self.btn4.setStyleSheet("QPushButton {\n"
-"    background-color: #1d5a96;\n"
-"    color: black;\n"
-"    font-size: 24px;\n"
-"    border-radius: 40px;\n"
-"    padding: 20px;\n"
-"}")
+                                "    background-color: #1d5a96;\n"
+                                "    color: black;\n"
+                                "    font-size: 24px;\n"
+                                "    border-radius: 40px;\n"
+                                "    padding: 20px;\n"
+                                "}")
         self.btn4.setObjectName("btn4")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
