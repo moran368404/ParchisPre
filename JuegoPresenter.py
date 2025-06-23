@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QPushButton
+from DialogTiradaInicial import DialogTiradaInicial
 
 
 class JuegoPresenter:
@@ -38,6 +39,13 @@ class JuegoPresenter:
                 self.mostrar_mensaje("Cancelado.")
                 return
 
+        # Tirada inicial para elegir jugador inicial
+        dialog_tirada = DialogTiradaInicial(self.juego.jugadores)
+        if dialog_tirada.exec_() == QDialog.Accepted:
+            ganador = dialog_tirada.get_ganador()
+            if ganador:
+                # Poner el turno_actual al índice del ganador
+                self.juego.turno_actual = self.juego.jugadores.index(ganador)
         self.iniciar()
 
     def iniciar(self):
@@ -84,20 +92,42 @@ class JuegoPresenter:
 
     def move_active_pion(self, valor_dado):
         jugador = self.juego.get_jugador_activo()
-        ficha = jugador.get_ficha_active(valor_dado)
+        ficha = None
+
+        # Si el dado es 5, prioriza sacar ficha de la base automáticamente
+        if valor_dado == 5:
+            for f in jugador.fichas:
+                if f.posicion == -1 and f.puede_moverse(valor_dado):
+                    ficha = f
+                    break
+        # Si no hay ficha en base para sacar, mueve la primera que pueda moverse normalmente
+        if ficha is None:
+            for f in jugador.fichas:
+                if f.posicion >= 0 and f.puede_moverse(valor_dado):
+                    ficha = f
+                    break
 
         if ficha:
             message = ficha.mover(valor_dado, self.juego.tablero)
             if message:
                 self.vista.mostrar_mensaje(message)
         else:
-            self.vista.mostrar_mensaje(f"No se puede mover ningúna ficha para {jugador.nombre}.")
+            self.vista.mostrar_mensaje(f"No se puede mover ninguna ficha para {jugador.nombre}.")
 
         # Cambio de turno (excepto si es 6)
         if valor_dado != 6:
             self.juego.siguiente_turno()
 
         self.mostrar_turno()
+
+    def move_ficha_directa(self, ficha, valor_dado):
+        message = ficha.mover(valor_dado, self.juego.tablero)
+        if message:
+            self.vista.mostrar_mensaje(message)
+        if valor_dado != 6:
+            self.juego.siguiente_turno()
+        self.mostrar_turno()
+
 
     def actualizar_tablero(self):
         self.limpia_iconos()

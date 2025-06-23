@@ -38,7 +38,7 @@ def main():
         ventana_inicio.close()
         vista_parchis.show()
 
-    QTimer.singleShot(3000, mostrar_menu_parchis)
+    QTimer.singleShot(500, mostrar_menu_parchis)
 
     sys.exit(app.exec_())
 
