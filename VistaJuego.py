@@ -116,8 +116,81 @@ class VistaTablero(VistaBase):
     def lanzar_dado(self):
         resultado = self.dado.lanzar()
         self.labelResultadoDado.setText(str(resultado))
-        self.presenter.move_active_pion(resultado)
+        jugador = self.presenter.juego.get_jugador_activo()
+        fichas_en_base = [f for f in jugador.fichas if f.posicion == -1 and f.puede_moverse(resultado)]
+        fichas_movibles = [f for f in jugador.fichas if f.posicion >= 0 and f.puede_moverse(resultado)]
+        # Si el dado es 5 y hay fichas en base Y hay fichas movibles en el tablero, preguntar al usuario si quiere sacar ficha
+        if resultado == 5 and fichas_en_base and fichas_movibles:
+            from PyQt5.QtWidgets import QMessageBox
+            msg = QMessageBox(self)
+            msg.setWindowTitle("Sacar ficha de la base")
+            msg.setText("¿Quieres sacar una ficha de la base?")
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            msg.setDefaultButton(QMessageBox.Yes)
+            respuesta = msg.exec_()
+            if respuesta == QMessageBox.Yes:
+                self.presenter.move_active_pion(resultado)
+                self.presenter.actualizar_tablero()
+                return
+            # Si elige no, dejarle elegir ficha a mover del tablero
+            if len(fichas_movibles) > 1:
+                self.btnLanzarDado.setEnabled(False)
+                self.mostrar_mensaje("Selecciona la ficha que deseas mover haciendo click en la casilla.")
+                self._esperando_seleccion = True
+                self._valor_dado_pendiente = resultado
+                self._conectar_clicks_fichas(fichas_movibles)
+            elif len(fichas_movibles) == 1:
+                self.presenter.move_ficha_directa(fichas_movibles[0], resultado)
+                self.presenter.actualizar_tablero()
+            else:
+                self.mostrar_mensaje("No hay fichas movibles en el tablero.")
+            return
+        # Si el dado es 5 y hay fichas en base pero NO hay fichas movibles en el tablero, sacar automáticamente
+        if resultado == 5 and fichas_en_base and not fichas_movibles:
+            self.presenter.move_active_pion(resultado)
+            self.presenter.actualizar_tablero()
+            return
+        # Si hay más de una ficha movible, esperar selección por click
+        if resultado != 5 and len(fichas_movibles) > 1:
+            self.btnLanzarDado.setEnabled(False)
+            self.mostrar_mensaje("Selecciona la ficha que deseas mover haciendo click en la casilla.")
+            self._esperando_seleccion = True
+            self._valor_dado_pendiente = resultado
+            self._conectar_clicks_fichas(fichas_movibles)
+        else:
+            self.presenter.move_active_pion(resultado)
+            self.presenter.actualizar_tablero()
+
+    def _conectar_clicks_fichas(self, fichas_movibles):
+        self._disconnectors = []
+        for ficha in fichas_movibles:
+            index = ficha.posicion + 1
+            boton = self.findChild(QPushButton, f"casilla{index}")
+            if boton:
+                handler = lambda _, f=ficha: self._on_ficha_click(f)
+                boton.clicked.connect(handler)
+                self._disconnectors.append((boton, handler))
+
+    def _on_ficha_click(self, ficha):
+        if not getattr(self, '_esperando_seleccion', False):
+            return
+        valor = getattr(self, '_valor_dado_pendiente', None)
+        if valor is None:
+            return
+        self.presenter.move_ficha_directa(ficha, valor)
         self.presenter.actualizar_tablero()
+        self._desconectar_clicks_fichas()
+        self.btnLanzarDado.setEnabled(True)
+        self._esperando_seleccion = False
+        self._valor_dado_pendiente = None
+
+    def _desconectar_clicks_fichas(self):
+        for boton, handler in getattr(self, '_disconnectors', []):
+            try:
+                boton.clicked.disconnect(handler)
+            except Exception:
+                pass
+        self._disconnectors = []
 
     def inicializar_fichas(self):
         """
@@ -140,6 +213,27 @@ class VistaTablero(VistaBase):
             x, y = self.position_to_coords(pos_logique)  # convierte la posición lógica en coordenadas en la interfaz
             label.move(x, y)
             label.show()
+        self.mostrar_fichas_en_base()
+
+    def mostrar_fichas_en_base(self):
+        # Limpia primero las fichas dibujadas en las bases
+        for color in ["rojo", "azul", "amarillo", "verde"]:
+            for i in range(1, 5):
+                base_label = self.findChild(QLabel, f"base_{color}_{i}")
+                if base_label:
+                    base_label.clear()
+        # Dibuja solo las fichas que están realmente en base
+        jugadores = self.presenter.juego.jugadores
+        for jugador in jugadores:
+            color = jugador.color.lower()
+            fichas_en_base = [f for f in jugador.fichas if f.posicion == -1]
+            for idx, ficha in enumerate(fichas_en_base):
+                if idx < 4:
+                    base_label = self.findChild(QLabel, f"base_{color}_{idx+1}")
+                    if base_label:
+                        pixmap = QPixmap(f"ficheros_ui/imagenes/pion_{color}.png")
+                        base_label.setPixmap(pixmap.scaled(30, 30))
+                        base_label.setVisible(True)
 
     """def position_to_coords(self, pos):
         # Suponga que su tablero tiene una cuadrícula de 10x10, cada cuadrado es de 40x40 píxeles.

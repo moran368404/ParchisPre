@@ -13,7 +13,7 @@ class Jugador:
     def __init__(self, nombre: str, color: str):
         self.nombre = nombre
         self.color = color  # Color de las fichas del jugador
-        self.fichas = [Ficha(i, -1, Casilla(0), self) for i in range(4)]  # Lista de fichas del jugador (List[Ficha])
+        self.fichas = [Ficha(i, -1, None, self) for i in range(4)]
 
     def fichas_en_meta(self) -> bool:
         """
@@ -54,14 +54,14 @@ class Ficha:
 
     def obtener_posicion_salida(self) -> int:
         color = self.jugador.color.lower()
-        if color == "amarillo":
-            return 0
+        if color == "rojo":
+            return 38 - 1
+        elif color == "amarillo":
+            return 4 - 1
         elif color == "azul":
-            return 17
-        elif color == "rojo":
-            return 34
+            return 21 - 1
         elif color == "verde":
-            return 51
+            return 55 - 1
         else:
             return 0
 
@@ -69,7 +69,7 @@ class Ficha:
         if not self.puede_moverse(pasos):
             return f"Ficha {self.id} de {self.jugador.nombre} no puede moverse."
 
-        if self.posicion == -1 and pasos == 6:
+        if self.posicion == -1 and pasos == 5:
             nueva_posicion = self.obtener_posicion_salida()
         else:
             nueva_posicion = (self.posicion + pasos) % 68
@@ -102,7 +102,7 @@ class Ficha:
             return False
 
         if self.posicion == -1:
-            return pasos == 6
+            return pasos == 5
 
         if self.posicion >= 0:
             return True
