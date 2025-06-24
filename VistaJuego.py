@@ -117,7 +117,7 @@ class VistaTablero(VistaBase):
         resultado = self.dado.lanzar()
         self.labelResultadoDado.setText(str(resultado))
         jugador = self.presenter.juego.get_jugador_activo()
-        fichas_en_base = [f for f in jugador.fichas if f.posicion == -1 and f.puede_moverse(resultado)]
+        fichas_en_base = [f for f in jugador.fichas if f.posicion == -1]
         fichas_movibles = [f for f in jugador.fichas if f.posicion >= 0 and f.puede_moverse(resultado)]
         # Si el dado es 5 y hay fichas en base Y hay fichas movibles en el tablero, preguntar al usuario si quiere sacar ficha
         if resultado == 5 and fichas_en_base and fichas_movibles:
@@ -151,7 +151,7 @@ class VistaTablero(VistaBase):
             self.presenter.actualizar_tablero()
             return
         # Si hay más de una ficha movible, esperar selección por click
-        if resultado != 5 and len(fichas_movibles) > 1:
+        if len(fichas_movibles) > 1:
             self.btnLanzarDado.setEnabled(False)
             self.mostrar_mensaje("Selecciona la ficha que deseas mover haciendo click en la casilla.")
             self._esperando_seleccion = True
@@ -164,12 +164,19 @@ class VistaTablero(VistaBase):
     def _conectar_clicks_fichas(self, fichas_movibles):
         self._disconnectors = []
         for ficha in fichas_movibles:
-            index = ficha.posicion + 1
-            boton = self.findChild(QPushButton, f"casilla{index}")
-            if boton:
-                handler = lambda _, f=ficha: self._on_ficha_click(f)
-                boton.clicked.connect(handler)
-                self._disconnectors.append((boton, handler))
+            if ficha.zona == 'tablero':
+                index = ficha.posicion + 1
+                boton = self.findChild(QPushButton, f"casilla{index}")
+                if boton:
+                    handler = lambda _, f=ficha: self._on_ficha_click(f)
+                    boton.clicked.connect(handler)
+                    self._disconnectors.append((boton, handler))
+            elif ficha.zona == 'pasillo':
+                boton = self.findChild(QPushButton, f"final{ficha.jugador.color.capitalize()}{ficha.posicion}")
+                if boton:
+                    handler = lambda _, f=ficha: self._on_ficha_click(f)
+                    boton.clicked.connect(handler)
+                    self._disconnectors.append((boton, handler))
 
     def _on_ficha_click(self, ficha):
         if not getattr(self, '_esperando_seleccion', False):
