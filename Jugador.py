@@ -94,11 +94,6 @@ class Ficha:
 
         nueva_casilla.agregar_ficha(self)
 
-        # Aquí, puede llamar a capturar_ficha SÓLO si hay otro archivo presente.
-        for ficha in nueva_casilla.fichas[:]:  # Copia para evitar modificaciones durante el bucle
-            if ficha.jugador != self.jugador:
-                tablero.capturar_ficha(ficha)
-
         # return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
 
     def ha_entrado_a_pasillo(self, vieja_posicion, nueva_posicion):
