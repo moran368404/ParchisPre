@@ -51,6 +51,7 @@ class Ficha:
         self.posicion = posicion
         self.casilla_actual = casilla_actual  # objeto de typo Casilla
         self.jugador = jugador  # la pieza pertenece a este jugador
+        self.zona = 'salida'
 
     def obtener_posicion_salida(self) -> int:
         color = self.jugador.color.lower()
@@ -69,16 +70,25 @@ class Ficha:
         if not self.puede_moverse(pasos):
             return f"Ficha {self.id} de {self.jugador.nombre} no puede moverse."
 
-        if self.posicion == -1 and pasos == 5:
+        if self.zona == 'salida':
             nueva_posicion = self.obtener_posicion_salida()
-        else:
+            self.zona = 'tablero'
+        elif self.zona == 'tablero':
             nueva_posicion = (self.posicion + pasos) % 68
-
-        nueva_casilla = tablero.obtener_casilla(nueva_posicion)
+            if self.ha_entrado_a_pasillo(self.posicion, nueva_posicion):
+                self.zona = 'pasillo'
+                nueva_posicion = 1
+        elif self.zona == 'pasillo':
+            nueva_posicion = self.posicion + pasos
+            if self.ha_llegado_a_meta(nueva_posicion):
+                self.zona = 'meta'
+            
+            
+        nueva_casilla = tablero.obtener_casilla(nueva_posicion, self.zona, self.jugador.color.lower())
+        
 
         if self.casilla_actual:
             self.casilla_actual.quitar_ficha(self)
-
         self.posicion = nueva_posicion
         self.casilla_actual = nueva_casilla
 
@@ -90,6 +100,20 @@ class Ficha:
                 tablero.capturar_ficha(ficha)
 
         # return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
+
+    def ha_entrado_a_pasillo(self, vieja_posicion, nueva_posicion):
+        color = self.jugador.color.lower()
+        if color == 'rojo':
+            return nueva_posicion > 33 and (33 >= vieja_posicion > 25)
+        elif color == 'amarillo':
+            return nueva_posicion >= 0 and (67 >= vieja_posicion > 59)
+        elif color == 'azul':
+            return nueva_posicion > 16 and (16 >= vieja_posicion > 8)
+        elif color == 'verde':
+            return nueva_posicion > 50 and (50 >= vieja_posicion > 42)
+
+    def ha_llegado_a_meta(self, nueva_posicion):
+        return nueva_posicion >= 8
 
     def puede_moverse(self, pasos: int) -> bool:
         """
@@ -106,5 +130,4 @@ class Ficha:
 
         if self.posicion >= 0:
             return True
-
         return False
