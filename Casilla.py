@@ -16,5 +16,7 @@ class Casilla:
             self.fichas.append(ficha)
 
     def quitar_ficha(self, ficha: 'Ficha'):
+        print(ficha)
+        print(self.fichas)
         if ficha in self.fichas:
             self.fichas.remove(ficha)

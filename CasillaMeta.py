@@ -10,4 +10,5 @@ class CasillaMeta(Casilla):
     """""""""
 
     def __init__(self, posicion: int):
+        self.nombre = 'llegada'
         super().__init__(posicion)

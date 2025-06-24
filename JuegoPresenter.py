@@ -134,27 +134,77 @@ class JuegoPresenter:
         self.mostrar_fichas()
 
     def limpia_iconos(self):
+        colores = ["Rojo", "Verde", "Azul", "Amarillo"]
         for i in range(1, 69):  # casilla1 à casilla68
             nom = f"casilla{i}"
             bouton = self.vista_tablero.findChild(QPushButton, nom)
             if bouton:
                 bouton.setIcon(QIcon())
 
+        for color in colores:
+            for i in range(1,8):
+                nom = f"final{color}{i}"
+                bouton = self.vista_tablero.findChild(QPushButton, nom)
+                if bouton:
+                    bouton.setIcon(QIcon())
+
     def mostrar_fichas(self):
         for jugador in self.juego.jugadores:
             for ficha in jugador.fichas:
-                if ficha.posicion >= 0:
-                    index = ficha.posicion + 1  # porque casilla1 corresponde a la posición 0
-                    nom_casilla = f"casilla{index}"
-                    boton = self.vista_tablero.findChild(QPushButton, nom_casilla)
-                    if boton:
-                        chemin_image = f"ficheros_ui/imagenes/pion_{jugador.color}.png"
-                        pixmap = QPixmap(chemin_image)
-                        if not pixmap.isNull():
-                            icon = QIcon(pixmap)
-                            boton.setIcon(icon)
-                            boton.setIconSize(QSize(30, 30))
-                        else:
-                            print(f"Imagen no encontrada : {chemin_image}")
-                    else:
-                        print(f"Boton {nom_casilla} irrastreable.")
+                zona = ficha.zona
+                if zona == 'tablero':
+                    self.mostrar_ficha_tablero(ficha, jugador)
+                elif zona == 'pasillo':
+                    self.mostrar_ficha_pasillo(ficha, jugador)
+                elif zona == 'meta':
+                    self.mostrar_ficha_meta(ficha, jugador)
+                
+                
+    
+    def mostrar_ficha_pasillo(self, ficha, jugador):
+        index = ficha.posicion
+        nom_casilla = f"final{jugador.color.capitalize()}{index}"
+        boton = self.vista_tablero.findChild(QPushButton, nom_casilla)
+        if boton:
+            chemin_image = f"ficheros_ui/imagenes/pion_{jugador.color}.png"
+            pixmap = QPixmap(chemin_image)
+            if not pixmap.isNull():
+                icon = QIcon(pixmap)
+                boton.setIcon(icon)
+                boton.setIconSize(QSize(30, 30))
+            else:
+                print(f"Imagen no encontrada : {chemin_image}")
+        else:
+            print(f"Boton {nom_casilla} irrastreable.")
+
+    def mostrar_ficha_tablero(self, ficha, jugador):
+        if ficha.posicion >= 0:
+            index = ficha.posicion + 1  # porque casilla1 corresponde a la posición 0
+            nom_casilla = f"casilla{index}"
+            boton = self.vista_tablero.findChild(QPushButton, nom_casilla)
+            if boton:
+                chemin_image = f"ficheros_ui/imagenes/pion_{jugador.color}.png"
+                pixmap = QPixmap(chemin_image)
+                if not pixmap.isNull():
+                    icon = QIcon(pixmap)
+                    boton.setIcon(icon)
+                    boton.setIconSize(QSize(30, 30))
+                else:
+                    print(f"Imagen no encontrada : {chemin_image}")
+            else:
+                print(f"Boton {nom_casilla} irrastreable.")
+
+    def mostrar_ficha_meta(self, ficha, jugador):
+        nom_casilla = f"llegada{jugador.color.capitalize()}"
+        boton = self.vista_tablero.findChild(QPushButton, nom_casilla)
+        if boton:
+            chemin_image = f"ficheros_ui/imagenes/pion_{jugador.color}.png"
+            pixmap = QPixmap(chemin_image)
+            if not pixmap.isNull():
+                icon = QIcon(pixmap)
+                boton.setIcon(icon)
+                boton.setIconSize(QSize(30, 30))
+            else:
+                print(f"Imagen no encontrada : {chemin_image}")
+        else:
+            print(f"Boton {nom_casilla} irrastreable.")
