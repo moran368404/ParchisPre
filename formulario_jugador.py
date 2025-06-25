@@ -34,8 +34,8 @@ class Ui_DialogJugador(object):
 
     def retranslateUi(self, DialogJugador):
         _translate = QtCore.QCoreApplication.translate
-        DialogJugador.setWindowTitle(_translate("DialogJugador", "Ajouter un Joueur"))
-        self.labelNom.setText(_translate("DialogJugador", "Nom du joueur :"))
-        self.labelCouleur.setText(_translate("DialogJugador", "Choisir une couleur :"))
-        self.btnValider.setText(_translate("DialogJugador", "Valider"))
-        self.btnAnnuler.setText(_translate("DialogJugador", "Annuler"))
+        DialogJugador.setWindowTitle(_translate("DialogJugador", "Agregar un jugador"))
+        self.labelNom.setText(_translate("DialogJugador", "Nombre del jugador :"))
+        self.labelCouleur.setText(_translate("DialogJugador", "Selecciona un color :"))
+        self.btnValider.setText(_translate("DialogJugador", "Aceptar"))
+        self.btnAnnuler.setText(_translate("DialogJugador", "Cancelar"))
