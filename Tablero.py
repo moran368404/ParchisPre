@@ -30,6 +30,9 @@ class Tablero:
             return self.casilla_meta
         return self.casillas[posicion % len(self.casillas)]
 
+    def es_casilla_especial(self, posicion):
+        casillas_especiales = [ 67, 63, 54, 50, 46, 37, 33, 29, 20, 16, 12, 3]
+        return posicion in casillas_especiales
 
     def mover_ficha(self, ficha: Ficha, pasos: int):
         return ficha.mover(pasos, self)

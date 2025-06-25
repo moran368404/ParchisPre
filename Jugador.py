@@ -78,6 +78,13 @@ class Ficha:
             if self.ha_entrado_a_pasillo(self.posicion, nueva_posicion):
                 self.zona = 'pasillo'
                 nueva_posicion = 1
+            else:
+                premio = self.capturar(tablero, nueva_posicion)
+                if premio > 0:
+                    nueva_posicion = (nueva_posicion + premio) % 68
+                    if self.ha_entrado_a_pasillo(self.posicion, nueva_posicion):
+                        self.zona = 'pasillo'
+                        nueva_posicion = 1
         elif self.zona == 'pasillo':
             nueva_posicion = self.posicion + pasos
             if self.ha_llegado_a_meta(nueva_posicion):
@@ -96,18 +103,30 @@ class Ficha:
 
         # return f"Ficha {self.id} de {self.jugador.nombre} desplazada a la posición {self.posicion}."
 
-    def ha_entrado_a_pasillo(self, vieja_posicion, nueva_posicion):
+    def capturar(self, tablero, nueva_posicion: int):
+        casilla = tablero.obtener_casilla(nueva_posicion, 'tablero', self.jugador.color.lower())
+        if tablero.es_casilla_especial(nueva_posicion):
+            return 0
+        ha_capturado = False
+        for ficha in casilla.fichas:
+            if ficha.zona == 'tablero' and (ficha.jugador.color != self.jugador.color):
+                ha_capturado = True
+                ficha.zona = 'salida'
+                ficha.posicion = -1
+        return 20 if ha_capturado else 0
+
+    def ha_entrado_a_pasillo(self, vieja_posicion: int, nueva_posicion: int):
         color = self.jugador.color.lower()
         if color == 'rojo':
-            return nueva_posicion > 33 and (33 >= vieja_posicion > 25)
+            return nueva_posicion > 33 and (33 >= vieja_posicion > 6)
         elif color == 'amarillo':
-            return nueva_posicion >= 0 and (67 >= vieja_posicion > 59)
+            return nueva_posicion >= 0 and (67 >= vieja_posicion > 40)
         elif color == 'azul':
-            return nueva_posicion > 16 and (16 >= vieja_posicion > 8)
+            return nueva_posicion > 16 and ((16 >= vieja_posicion > 0) or (vieja_posicion > 58))
         elif color == 'verde':
-            return nueva_posicion > 50 and (50 >= vieja_posicion > 42)
+            return nueva_posicion > 50 and (50 >= vieja_posicion > 23)
 
-    def ha_llegado_a_meta(self, nueva_posicion):
+    def ha_llegado_a_meta(self, nueva_posicion: int):
         return nueva_posicion >= 8
 
     def puede_moverse(self, pasos: int) -> bool:
