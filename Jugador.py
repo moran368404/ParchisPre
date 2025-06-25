@@ -30,7 +30,7 @@ class Jugador:
             if ficha.posicion >= 0 and ficha.puede_moverse(pasos):
                 return ficha
 
-        # Entonces intentamos sacar uno si el dado es 6
+        # Entonces intentamos sacar uno si el dado es 5
         for ficha in self.fichas:
             if ficha.posicion == -1 and ficha.puede_moverse(pasos):
                 return ficha

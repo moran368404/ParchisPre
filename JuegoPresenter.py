@@ -63,27 +63,6 @@ class JuegoPresenter:
         jugador = self.juego.get_jugador_activo()
         self.vista_tablero.mostrar_turno(jugador.nombre, jugador.color)
 
-    """def lanzar_dado(self):
-        resultado = self.juego.lanzar_dado()
-        self.vista.mostrar_dado(resultado)
-        return resultado"""
-
-    """def mover_ficha(self, jugador: Jugador, ficha_id: int, pasos: int):
-        ficha = jugador.fichas[ficha_id]
-        if ficha.puede_moverse(pasos):
-            self.juego.mover_ficha(jugador, ficha, pasos)
-            self.vista.mostrar_mensaje(f"{jugador.nombre} mueve ficha {ficha_id} a {ficha.posicion}")
-            self.actualizar_tablero()
-            ganador = self.juego.verificar_ganador()
-            if ganador:
-                self.vista.mostrar_mensaje(f"{ganador.nombre} ha ganado!")
-                return True
-            else:
-                self.juego.siguiente_turno()
-        else:
-            self.vista.mostrar_mensaje("Movimiento inválido")
-        return False"""
-
     def get_fichas(self):
         fichas = []
         for joueur in self.juego.jugadores:
