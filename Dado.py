@@ -14,7 +14,16 @@ class Dado:
             raise ValueError("Un dado debe tener al menos 2 caras.")
         self.caras = caras
         self.valor = None
+        self.i = 0
 
     def lanzar(self):
         self.valor = random.randint(1, self.caras)
+        return self.valor
+
+    def mock_lanzar(self):
+        if self.i <= 8:
+            self.valor = 5
+            self.i += 1
+        else:
+            self.valor = self.lanzar()
         return self.valor

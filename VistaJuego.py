@@ -113,8 +113,36 @@ class VistaTablero(VistaBase):
         self.presenter = presenter
         self.inicializar_fichas()
 
+    def declarar_ganador(self, ganador):
+        self.mostrar_mensaje(f"Tenemos un ganador: {ganador}")
+
+    def obtener_ganador(self):
+        fichas = self.presenter.get_fichas()
+        fichas_en_meta = {
+            'amarillo': [0, ''],
+            'verde': [0, ''],
+            'azul': [0, ''],
+            'rojo': [0, ''],
+        }
+        for ficha in fichas:
+            color = ficha.jugador.color.lower()
+            zona = ficha.zona
+            if zona == 'meta':
+                fichas_en_meta[color][0] += 1
+                fichas_en_meta[color][1] = ficha.jugador.nombre
+
+        for color, en_meta in fichas_en_meta.items():
+            total, nombre = en_meta
+            if total >= 4:
+                return nombre
+        return ''
+
     def lanzar_dado(self):
-        resultado = self.dado.lanzar()
+        ganador = self.obtener_ganador()
+        if ganador != '':
+            self.declarar_ganador(ganador)
+            return
+        resultado = self.dado.lanzar()  # cambiar a mock lanzar para iniciar una partida de 2 jugadores más rápido
         self.labelResultadoDado.setText(str(resultado))
         jugador = self.presenter.juego.get_jugador_activo()
         fichas_en_base = [f for f in jugador.fichas if f.posicion == -1]
